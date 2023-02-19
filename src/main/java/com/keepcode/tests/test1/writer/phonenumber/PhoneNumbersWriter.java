@@ -1,4 +1,4 @@
-package com.keepcode.tests.test1.phonenumbers;
+package com.keepcode.tests.test1.writer.phonenumber;
 
 import com.keepcode.tests.test1.dto.Country;
 import com.keepcode.tests.test1.dto.PhoneNumber;

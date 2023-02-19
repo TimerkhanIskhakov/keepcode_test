@@ -27,8 +27,8 @@
                         AdminController.getInstance().processUssdMessage(
                                 new DblIncomeUssdMessage(lineAddress.getHostName(), lineAddress.getPort(), 0,  EnumGoip.getByModel(getGoipModel()), currentCommand.getCommandText()), false);
                     } catch (Exception ignored) { }
-                    Log.ussd.write(String.format("sent: ip: %s; порт: %d; %s",
-                            lineAddress.getHostString(), lineAddress.getPort(), currentCommand.getCommandText()));  currentCommand.setSendDate(new Date());
+                    Log.ussd.write(String.format("sent: ip: %s; порт: %d; %s",lineAddress.getHostString(), lineAddress.getPort(), currentCommand.getCommandText()));  
+                    currentCommand.setSendDate(new Date());
                     currentCommand.incSendCounter();
                 } else {
                     typeToRemove = currentCommand.getCommandType();

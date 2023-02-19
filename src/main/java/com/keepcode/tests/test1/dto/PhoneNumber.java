@@ -1,16 +1,15 @@
 package com.keepcode.tests.test1.dto;
 
 import lombok.Getter;
-import org.json.JSONObject;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 @Getter
+@Setter
 public class PhoneNumber {
 
-    private String phoneNumber;
+    private String number;
 
     private Country country;
 
@@ -24,19 +23,7 @@ public class PhoneNumber {
 
     private String status;
 
-    public PhoneNumber(JSONObject number) {
-        parseJson(number);
-    }
+    public PhoneNumber() {
 
-    private void parseJson(JSONObject number) {
-        this.country = new Country(number.getInt("country"), number.getString("country_text"));
-        this.phoneNumber = number.getString("number");
-        this.dataHumans = number.getString("data_humans");
-        this.fullNumber = number.getString("full_number");
-        this.status = number.getString("status");
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").toFormatter();
-        this.updatedAt = LocalDateTime.parse(number.getString("updated_at"),
-                formatter);
-        this.maxDate = LocalDateTime.parse(number.getString("maxdate"), formatter);
     }
 }

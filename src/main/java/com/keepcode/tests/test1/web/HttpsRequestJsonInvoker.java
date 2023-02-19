@@ -30,8 +30,9 @@ public class HttpsRequestJsonInvoker {
 
     /**
      * Invoke GET request on @url
+     *
      * @return response as Json
-     * @throws RequestException if something went wrong while request
+     * @throws RequestException  if something went wrong while request
      * @throws ResponseException if response code is not HttpURLConnection.HTTP_OK
      */
     public JSONObject invokeGet() {

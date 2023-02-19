@@ -1,12 +1,12 @@
 package com.keepcode.tests.test1;
 
-import com.keepcode.tests.test1.country.CountryLoader;
-import com.keepcode.tests.test1.country.OnlineSimCountryLoader;
 import com.keepcode.tests.test1.dto.Country;
 import com.keepcode.tests.test1.dto.PhoneNumber;
-import com.keepcode.tests.test1.phonenumbers.OnlineSimFreePhoneNumberLoader;
-import com.keepcode.tests.test1.phonenumbers.PhoneNumberLoader;
-import com.keepcode.tests.test1.phonenumbers.PhoneNumbersWriter;
+import com.keepcode.tests.test1.loader.country.CountryLoader;
+import com.keepcode.tests.test1.loader.country.OnlineSimCountryLoader;
+import com.keepcode.tests.test1.loader.phonenumber.OnlineSimFreePhoneNumberLoader;
+import com.keepcode.tests.test1.loader.phonenumber.PhoneNumberLoader;
+import com.keepcode.tests.test1.writer.phonenumber.PhoneNumbersWriter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +29,7 @@ public class Main {
             PhoneNumbersWriter numbersWriter = new PhoneNumbersWriter(countryToNumbers);
             numbersWriter.writeNumbersToConsole();
         } catch (Exception e) {
+            //better write to log
             e.printStackTrace();
         }
     }

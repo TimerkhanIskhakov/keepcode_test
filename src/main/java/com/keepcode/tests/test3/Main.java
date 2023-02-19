@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Main {
 
-    //I would like to use constants instead of magic numbers, but I have no idea how to name it
+    //I would like to use constants instead of magic numbers
     public static final int ZERO = 0;
 
     public static void main(String[] args) {
@@ -19,10 +19,11 @@ public class Main {
         InetSocketAddress lineAddress = new InetSocketAddress(getIpAddress(), getUdpPort());
         //There would be a usage of stream api, but it's not improve code readability
         for (Command currentCommand : getAllCommands()) {
-            //Maybe it is a good idea to create method invoke() in CommandType and extract logic to it
-            //But I don't know can modify CommandType or not
-            if (!currentCommand.isAttemptsNumberExhausted()
-                    && (currentCommand.getCommandType() != CommandType.REBOOT_CHANNEL || currentCommand.isTimeToSend())) {
+            //Maybe it is a good idea to create method invoke() in Command and extract logic to it
+            //But I don't know can modify Command or not
+            boolean isAttemptsNumberNotExhausted = !currentCommand.isAttemptsNumberExhausted();
+            boolean isNotRebootChannelOrIsTimeToSend = currentCommand.getCommandType() != CommandType.REBOOT_CHANNEL || currentCommand.isTimeToSend();
+            if (isAttemptsNumberNotExhausted && isNotRebootChannelOrIsTimeToSend) {
                 sendCommandToContext(ctx, lineAddress, currentCommand.getCommandText());
                 sendMessage(lineAddress, currentCommand);
             } else {
@@ -43,7 +44,7 @@ public class Main {
                     false
             );
         } catch (Exception ignored) {
-            //It's not so good to leave empty code block, but I don't know what can I do here
+            //It's not so good to leave empty code block, better to log exception
         }
         //next line was switched for one of two cases because it looked vary similar
         currentCommand.setSendDate(new Date());

@@ -1,4 +1,4 @@
-package com.keepcode.tests.test1.country;
+package com.keepcode.tests.test1.loader.country;
 
 import com.keepcode.tests.test1.dto.Country;
 
@@ -11,6 +11,7 @@ public interface CountryLoader {
 
     /**
      * Load countries
+     *
      * @return list of countries
      */
     List<Country> loadCountries();

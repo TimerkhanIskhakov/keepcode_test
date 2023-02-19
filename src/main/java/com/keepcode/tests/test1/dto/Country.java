@@ -1,14 +1,15 @@
 package com.keepcode.tests.test1.dto;
 
 import lombok.Getter;
-import org.json.JSONObject;
+import lombok.Setter;
 
 import java.util.Objects;
 
 @Getter
+@Setter
 public class Country {
 
-    private int countryCode;
+    private Integer countryCode;
 
     private String countryName;
 
@@ -17,13 +18,8 @@ public class Country {
         this.countryName = countryName;
     }
 
-    public Country(JSONObject country) {
-        parseJson(country);
-    }
+    public Country() {
 
-    private void parseJson(JSONObject country) {
-        this.countryCode = country.getInt("country");
-        this.countryName = country.getString("country_text");
     }
 
     @Override
@@ -31,12 +27,12 @@ public class Country {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Country country1 = (Country) o;
-        return countryCode == country1.countryCode && Objects.equals(countryName, country1.countryName);
+        return Objects.equals(countryCode, country1.countryCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(countryCode, countryName);
+        return Objects.hash(countryCode);
     }
 
 }

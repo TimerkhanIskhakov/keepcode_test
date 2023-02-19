@@ -1,4 +1,4 @@
-package com.keepcode.tests.test1.phonenumbers;
+package com.keepcode.tests.test1.loader.phonenumber;
 
 import com.keepcode.tests.test1.dto.Country;
 import com.keepcode.tests.test1.dto.PhoneNumber;
@@ -16,29 +16,31 @@ import java.util.stream.Collectors;
  */
 public class OnlineSimFreePhoneNumberLoader implements PhoneNumberLoader {
 
-    public static final String GET_PHONE_LIST_URL = "https://onlinesim.ru/api/getFreePhoneList?country=";
+    public static final String GET_PHONE_LIST_BY_COUNTRY_URL = "https://onlinesim.ru/api/getFreePhoneList?country=";
+
+    public static final String GET_ALL_PHONES_URL = "https://onlinesim.ru/api/getFreePhoneList";
 
     String numbersJsonProperty = "numbers";
 
     /**
-     * Load free phone numbers by specified country
-     *
-     * @return free phone numbers by specified country
-     * @throws IllegalArgumentException if specified country is null
+     * Load free phone numbers by specified country or all phones for all countries if country isn't specified
+     * @return list of free phone numbers
      */
     @Override
     public List<PhoneNumber> loadFreeNumbersByCountry(Country country) {
-        if (Objects.isNull(country)) {
-            throw new IllegalArgumentException("Country can't be null");
+        JSONObject numberResponse;
+        if (Objects.isNull(country) || Objects.isNull(country.getCountryCode())) {
+            numberResponse = new HttpsRequestJsonInvoker(GET_ALL_PHONES_URL).invokeGet();
+        } else {
+            numberResponse = new HttpsRequestJsonInvoker(GET_PHONE_LIST_BY_COUNTRY_URL + country.getCountryCode()).invokeGet();
         }
-        JSONObject numberResponse = new HttpsRequestJsonInvoker(GET_PHONE_LIST_URL + country.getCountryCode()).invokeGet();
         OnlineSimApiHelper.checkResponse(numberResponse);
         return getNumbers(numberResponse, numbersJsonProperty);
     }
 
     private List<PhoneNumber> getNumbers(JSONObject response, String property) {
         return JsonHelper.getListOfArrayProperty(response, property).stream()
-                .map(PhoneNumber::new)
+                .map(JsonHelper::parsePhoneNumbersFromOnlineSimApi)
                 .collect(Collectors.toList());
     }
 }
