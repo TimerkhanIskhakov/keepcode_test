@@ -8,6 +8,7 @@ import com.keepcode.tests.test1.loader.phonenumber.OnlineSimFreePhoneNumberLoade
 import com.keepcode.tests.test1.loader.phonenumber.PhoneNumberLoader;
 import com.keepcode.tests.test1.writer.phonenumber.PhoneNumbersWriter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +20,9 @@ public class Main {
             CountryLoader countryLoader = new OnlineSimCountryLoader();
             List<Country> countries = countryLoader.loadCountries();
             Map<Country, List<PhoneNumber>> countryToNumbers = new HashMap<>();
+            PhoneNumberLoader numbersLoader = new OnlineSimFreePhoneNumberLoader();
 
             for (Country country : countries) {
-                PhoneNumberLoader numbersLoader = new OnlineSimFreePhoneNumberLoader();
                 List<PhoneNumber> numbers = numbersLoader.loadFreeNumbersByCountry(country);
                 countryToNumbers.put(country, numbers);
             }
