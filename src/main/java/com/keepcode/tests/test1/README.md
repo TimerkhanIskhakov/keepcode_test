@@ -2,7 +2,7 @@
 
 https://onlinesim.ru/api/getFreeCountryList
 
-https://onlinesim.ru/api/getFreePhoneList?country=?
+https://onlinesim.ru/api/getFreePhoneList?countryDto=?
 
 Вывести все номера по всем странам в консоль, или файл, или графический интерфейс на Swing или JavaFx.
 

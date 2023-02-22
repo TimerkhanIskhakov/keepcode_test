@@ -8,11 +8,11 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class PhoneNumber {
+public class PhoneNumberDto {
 
     private String number;
 
-    private Country country;
+    private CountryDto countryDto;
 
     private LocalDateTime updatedAt;
 
@@ -24,7 +24,7 @@ public class PhoneNumber {
 
     private String status;
 
-    public PhoneNumber() {
+    public PhoneNumberDto() {
 
     }
 
@@ -32,12 +32,12 @@ public class PhoneNumber {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PhoneNumber that = (PhoneNumber) o;
-        return Objects.equals(number, that.number) && Objects.equals(country, that.country);
+        PhoneNumberDto that = (PhoneNumberDto) o;
+        return Objects.equals(number, that.number) && Objects.equals(countryDto, that.countryDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, country);
+        return Objects.hash(number, countryDto);
     }
 }

@@ -1,15 +1,14 @@
 package com.keepcode.tests.test1;
 
-import com.keepcode.tests.test1.dto.Country;
-import com.keepcode.tests.test1.dto.PhoneNumber;
-import com.keepcode.tests.test1.loader.country.CountryLoader;
+import com.keepcode.tests.test1.dto.CountryDto;
+import com.keepcode.tests.test1.dto.PhoneNumberDto;
 import com.keepcode.tests.test1.loader.country.OnlineSimCountryLoader;
 import com.keepcode.tests.test1.loader.phonenumber.OnlineSimFreePhoneNumberLoader;
-import com.keepcode.tests.test1.loader.phonenumber.PhoneNumberLoader;
-import com.keepcode.tests.test1.writer.phonenumber.PhoneNumbersWriter;
+import com.keepcode.tests.test1.service.country.CountryService;
+import com.keepcode.tests.test1.service.country.CountryServiceImpl;
+import com.keepcode.tests.test1.service.phonenumber.PhoneNumberService;
+import com.keepcode.tests.test1.service.phonenumber.PhoneNumberServiceImpl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,18 +16,15 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            CountryLoader countryLoader = new OnlineSimCountryLoader();
-            List<Country> countries = countryLoader.loadCountries();
-            Map<Country, List<PhoneNumber>> countryToNumbers = new HashMap<>();
-            PhoneNumberLoader numbersLoader = new OnlineSimFreePhoneNumberLoader();
+            CountryService countryService =
+                    new CountryServiceImpl(new OnlineSimCountryLoader());
+            PhoneNumberService phoneService =
+                    new PhoneNumberServiceImpl(new OnlineSimFreePhoneNumberLoader());
 
-            for (Country country : countries) {
-                List<PhoneNumber> numbers = numbersLoader.loadFreeNumbersByCountry(country);
-                countryToNumbers.put(country, numbers);
-            }
+            Map<CountryDto, List<PhoneNumberDto>> countryToNumbers =
+                    phoneService.loadPhoneNumbers(countryService.loadCountries());
 
-            PhoneNumbersWriter numbersWriter = new PhoneNumbersWriter(countryToNumbers);
-            numbersWriter.writeNumbersToConsole();
+            phoneService.writePhoneNumbersToConsole(countryToNumbers);
         } catch (Exception e) {
             //better write to log
             e.printStackTrace();

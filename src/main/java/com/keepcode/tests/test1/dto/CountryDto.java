@@ -7,18 +7,18 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Country {
+public class CountryDto {
 
     private Integer countryCode;
 
     private String countryName;
 
-    public Country(int countryCode, String countryName) {
+    public CountryDto(int countryCode, String countryName) {
         this.countryCode = countryCode;
         this.countryName = countryName;
     }
 
-    public Country() {
+    public CountryDto() {
 
     }
 
@@ -26,8 +26,8 @@ public class Country {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Country country1 = (Country) o;
-        return Objects.equals(countryCode, country1.countryCode);
+        CountryDto countryDto1 = (CountryDto) o;
+        return Objects.equals(countryCode, countryDto1.countryCode);
     }
 
     @Override

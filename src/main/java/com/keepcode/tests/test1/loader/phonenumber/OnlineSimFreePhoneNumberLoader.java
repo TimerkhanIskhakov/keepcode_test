@@ -1,7 +1,7 @@
 package com.keepcode.tests.test1.loader.phonenumber;
 
-import com.keepcode.tests.test1.dto.Country;
-import com.keepcode.tests.test1.dto.PhoneNumber;
+import com.keepcode.tests.test1.dto.CountryDto;
+import com.keepcode.tests.test1.dto.PhoneNumberDto;
 import com.keepcode.tests.test1.helper.JsonHelper;
 import com.keepcode.tests.test1.helper.OnlineSimApiHelper;
 import com.keepcode.tests.test1.web.HttpsRequestJsonInvoker;
@@ -24,21 +24,22 @@ public class OnlineSimFreePhoneNumberLoader implements PhoneNumberLoader {
 
     /**
      * Load free phone numbers by specified country or all phones for all countries if country isn't specified
+     *
      * @return list of free phone numbers
      */
     @Override
-    public List<PhoneNumber> loadFreeNumbersByCountry(Country country) {
+    public List<PhoneNumberDto> loadFreeNumbersByCountry(CountryDto countryDto) {
         JSONObject numberResponse;
-        if (Objects.isNull(country) || Objects.isNull(country.getCountryCode())) {
+        if (Objects.isNull(countryDto) || Objects.isNull(countryDto.getCountryCode())) {
             numberResponse = new HttpsRequestJsonInvoker(GET_ALL_PHONES_URL).invokeGet();
         } else {
-            numberResponse = new HttpsRequestJsonInvoker(GET_PHONE_LIST_BY_COUNTRY_URL + country.getCountryCode()).invokeGet();
+            numberResponse = new HttpsRequestJsonInvoker(GET_PHONE_LIST_BY_COUNTRY_URL + countryDto.getCountryCode()).invokeGet();
         }
         OnlineSimApiHelper.checkResponse(numberResponse);
         return getNumbers(numberResponse, numbersJsonProperty);
     }
 
-    private List<PhoneNumber> getNumbers(JSONObject response, String property) {
+    private List<PhoneNumberDto> getNumbers(JSONObject response, String property) {
         return JsonHelper.getListOfArrayProperty(response, property).stream()
                 .map(JsonHelper::parsePhoneNumbersFromOnlineSimApi)
                 .collect(Collectors.toList());

@@ -1,13 +1,13 @@
-package com.keepcode.tests.test1.loader.country;
+package com.keepcode.tests.test1.service.country;
 
 import com.keepcode.tests.test1.dto.CountryDto;
 
 import java.util.List;
 
 /**
- * Loader for countries
+ * Service for work with countries
  */
-public interface CountryLoader {
+public interface CountryService {
 
     /**
      * Load countries
