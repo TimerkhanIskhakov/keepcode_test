@@ -8,6 +8,7 @@ import com.keepcode.tests.test1.service.country.CountryService;
 import com.keepcode.tests.test1.service.country.CountryServiceImpl;
 import com.keepcode.tests.test1.service.phonenumber.PhoneNumberService;
 import com.keepcode.tests.test1.service.phonenumber.PhoneNumberServiceImpl;
+import com.keepcode.tests.test1.writer.phonenumber.PhoneNumbersWriter;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class Main {
             CountryService countryService =
                     new CountryServiceImpl(new OnlineSimCountryLoader());
             PhoneNumberService phoneService =
-                    new PhoneNumberServiceImpl(new OnlineSimFreePhoneNumberLoader());
+                    new PhoneNumberServiceImpl(new OnlineSimFreePhoneNumberLoader(), new PhoneNumbersWriter());
 
             Map<CountryDto, List<PhoneNumberDto>> countryToNumbers =
                     phoneService.loadPhoneNumbers(countryService.loadCountries());

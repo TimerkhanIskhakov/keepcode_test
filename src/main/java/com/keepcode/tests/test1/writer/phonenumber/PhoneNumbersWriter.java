@@ -11,16 +11,11 @@ import java.util.Map;
  */
 public class PhoneNumbersWriter {
 
-    Map<CountryDto, List<PhoneNumberDto>> countryToNumbers;
-
-    public PhoneNumbersWriter(Map<CountryDto, List<PhoneNumberDto>> countryToNumbers) {
-        this.countryToNumbers = countryToNumbers;
-    }
-
     /**
      * Write phone numbers in console
+     * @param countryToNumbers as map countries to phone numbers
      */
-    public void writeNumbersToConsole() {
+    public void writeNumbersToConsole(Map<CountryDto, List<PhoneNumberDto>> countryToNumbers) {
         for (Map.Entry<CountryDto, List<PhoneNumberDto>> entry : countryToNumbers.entrySet()) {
             StringBuilder result = new StringBuilder();
             result.append("Free phone numbers for country: ")

@@ -16,8 +16,11 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
 
     private PhoneNumberLoader numbersLoader;
 
-    public PhoneNumberServiceImpl(PhoneNumberLoader numbersLoader) {
+    private PhoneNumbersWriter numbersWriter;
+
+    public PhoneNumberServiceImpl(PhoneNumberLoader numbersLoader, PhoneNumbersWriter numbersWriter) {
         this.numbersLoader = numbersLoader;
+        this.numbersWriter = numbersWriter;
     }
 
     /**
@@ -50,8 +53,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
      */
     @Override
     public void writePhoneNumbersToConsole(Map<CountryDto, List<PhoneNumberDto>> countryToNumbers) {
-        PhoneNumbersWriter numbersWriter = new PhoneNumbersWriter(countryToNumbers);
-        numbersWriter.writeNumbersToConsole();
+        numbersWriter.writeNumbersToConsole(countryToNumbers);
     }
 
 }

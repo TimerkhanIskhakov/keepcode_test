@@ -1,7 +1,5 @@
 package com.keepcode.tests.test1.helper;
 
-import com.keepcode.tests.test1.dto.CountryDto;
-import com.keepcode.tests.test1.dto.PhoneNumberDto;
 import com.keepcode.tests.test1.exception.ReadingException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,36 +73,5 @@ public class JsonHelper {
             throw new IllegalArgumentException("Date property not found");
         }
         return LocalDateTime.parse(date, formatter);
-    }
-
-    /**
-     * Parse json from onlinesim api to PhoneNumber
-     *
-     * @param json json response from onlinesim api
-     * @return phoneNumber from json
-     */
-    public static PhoneNumberDto parsePhoneNumbersFromOnlineSimApi(JSONObject json) {
-        PhoneNumberDto phoneNumberDto = new PhoneNumberDto();
-        phoneNumberDto.setCountryDto(new CountryDto(json.getInt("country"), json.getString("country_text")));
-        phoneNumberDto.setNumber(json.getString("number"));
-        phoneNumberDto.setDataHumans(json.getString("data_humans"));
-        phoneNumberDto.setFullNumber(json.getString("full_number"));
-        phoneNumberDto.setStatus(json.getString("status"));
-        phoneNumberDto.setUpdatedAt(JsonHelper.getDateFromJson(json, "updated_at", OnlineSimApiHelper.ONLINE_SIM_API_DATA_FORMATTER));
-        phoneNumberDto.setMaxDate(JsonHelper.getDateFromJson(json, "maxdate", OnlineSimApiHelper.ONLINE_SIM_API_DATA_FORMATTER));
-        return phoneNumberDto;
-    }
-
-    /**
-     * Parse json from onlinesim api to Country
-     *
-     * @param json json response from onlinesim api
-     * @return country from json
-     */
-    public static CountryDto parseCountryFromOnlineSimApi(JSONObject json) {
-        CountryDto countryDto = new CountryDto();
-        countryDto.setCountryCode(json.getInt("country"));
-        countryDto.setCountryName(json.getString("country_text"));
-        return countryDto;
     }
 }

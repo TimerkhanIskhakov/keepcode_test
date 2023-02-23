@@ -1,6 +1,7 @@
 package com.keepcode.tests.test1.loader.phonenumber;
 
 import com.keepcode.tests.test1.dto.CountryDto;
+import com.keepcode.tests.test1.dto.OnlineSimPhoneNumberDto;
 import com.keepcode.tests.test1.dto.PhoneNumberDto;
 import com.keepcode.tests.test1.helper.JsonHelper;
 import com.keepcode.tests.test1.helper.OnlineSimApiHelper;
@@ -41,7 +42,7 @@ public class OnlineSimFreePhoneNumberLoader implements PhoneNumberLoader {
 
     private List<PhoneNumberDto> getNumbers(JSONObject response, String property) {
         return JsonHelper.getListOfArrayProperty(response, property).stream()
-                .map(JsonHelper::parsePhoneNumbersFromOnlineSimApi)
+                .map(OnlineSimPhoneNumberDto::new)
                 .collect(Collectors.toList());
     }
 }

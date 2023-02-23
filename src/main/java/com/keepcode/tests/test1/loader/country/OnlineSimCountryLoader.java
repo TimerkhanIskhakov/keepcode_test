@@ -1,6 +1,7 @@
 package com.keepcode.tests.test1.loader.country;
 
 import com.keepcode.tests.test1.dto.CountryDto;
+import com.keepcode.tests.test1.dto.OnlineSimCountryDto;
 import com.keepcode.tests.test1.helper.JsonHelper;
 import com.keepcode.tests.test1.helper.OnlineSimApiHelper;
 import com.keepcode.tests.test1.web.HttpsRequestJsonInvoker;
@@ -32,7 +33,7 @@ public class OnlineSimCountryLoader implements CountryLoader {
 
     private List<CountryDto> getCountries(JSONObject response, String property) {
         return JsonHelper.getListOfArrayProperty(response, property).stream()
-                .map(JsonHelper::parseCountryFromOnlineSimApi)
+                .map(OnlineSimCountryDto::new)
                 .collect(Collectors.toList());
     }
 }
